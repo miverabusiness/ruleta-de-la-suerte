@@ -6,15 +6,43 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-weight: 800;
-	font-size: 1.2rem;
+	font-weight: 600;
+	font-size: 2rem;
 	margin: 0;
 	background: none;
 	cursor: pointer;
 	color: white;
-	transition: 0.5s;
+	transition: 0.4s;
+	margin-left: 0.5rem;
+	margin-top: 0.5rem;
 }
 
 .letter-card:hover {
 	background: #c6c6c6;
+}
+
+.space {
+	background: rgb(8, 8, 8);
+	border: solid 3px #282828;
+}
+
+.space:hover {
+	background: rgb(8, 8, 8);
+}
+
+.correct {
+	background: rgb(48, 168, 76);
+	border: solid 3px rgb(41, 136, 63);
+}
+
+.correct:hover {
+	background: rgb(48, 168, 76);
+}
+
+.not-yet {
+	background: #3d3d3d;
+}
+
+.not-yet:hover {
+	background: rgb(255, 184, 112);
 }
