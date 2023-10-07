@@ -112,7 +112,9 @@ function Panel() {
 			<br />
 			<input type="text" value={inputValue4} onChange={handleChange4} />
 			<br />
-			<button onClick={handleSave}>OK!</button>
+			<button className="cargar-panel" onClick={handleSave}>
+				Cargar Panel
+			</button>
 			{filas}
 		</>
 	);
