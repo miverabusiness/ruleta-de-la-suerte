@@ -3,3 +3,14 @@
 	justify-content: center;
 	flex-wrap: nowrap;
 }
+
+input {
+	background: none;
+	border: solid 2px white;
+	border-radius: 7px;
+	width: 20rem;
+	height: 1.5rem;
+	color: white;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
+}

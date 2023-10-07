@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "./Card.css";
 
 function Card(props: { letra: string }) {
-	const [mostrarLetra, setMostrarLetra] = useState(true);
+	const [mostrarLetra, setMostrarLetra] = useState(false);
 
 	const handleClick = () => {
 		setMostrarLetra(!mostrarLetra);
 	};
 
 	const isLetter = () => {
-		return props.letra === " " ? " space" : mostrarLetra ? " correct" : " not-yet";
+		return props.letra === " " || props.letra === "" ? " space" : mostrarLetra ? " correct" : " not-yet";
 	};
 
 	return (

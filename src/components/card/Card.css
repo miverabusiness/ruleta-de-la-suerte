@@ -13,8 +13,8 @@
 	cursor: pointer;
 	color: white;
 	transition: 0.4s;
-	margin-left: 0.5rem;
-	margin-top: 0.5rem;
+	margin-left: 0.3rem;
+	margin-top: 0.3rem;
 }
 
 .letter-card:hover {
