@@ -24,24 +24,67 @@ panel = [
 ];
 
 function Panel() {
-	const [inputValue, setInputValue] = useState("");
-	const [savedValue, setSavedValue] = useState(null);
+	const [inputValue1, setInputValue1] = useState("");
+	const [inputValue2, setInputValue2] = useState("");
+	const [inputValue3, setInputValue3] = useState("");
+	const [inputValue4, setInputValue4] = useState("");
+	const [savedValue1, setSavedValue1] = useState(null);
+	const [savedValue2, setSavedValue2] = useState(null);
+	const [savedValue3, setSavedValue3] = useState(null);
+	const [savedValue4, setSavedValue4] = useState(null);
 
-	const handleChange = (event) => {
-		setInputValue(event.target.value);
+	const handleChange1 = (event) => {
+		setInputValue1(event.target.value);
+	};
+
+	const handleChange2 = (event) => {
+		setInputValue2(event.target.value);
+	};
+
+	const handleChange3 = (event) => {
+		setInputValue3(event.target.value);
+	};
+
+	const handleChange4 = (event) => {
+		setInputValue4(event.target.value);
 	};
 
 	const handleSave = () => {
-		const arrayLetras = ["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-		const texto = inputValue.toUpperCase();
-		for (let i = 0; i < arrayLetras.length; i++) {
-			arrayLetras[i] = texto[i] ? texto[i] : " ";
-		}
-		setSavedValue(arrayLetras);
-		panel[1] = arrayLetras;
-	};
+		let arrayLetras1 = ["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+		let arrayLetras2 = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+		let arrayLetras3 = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+		let arrayLetras4 = ["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+		const texto1 = inputValue1.toUpperCase();
+		const texto2 = inputValue2.toUpperCase();
+		const texto3 = inputValue3.toUpperCase();
+		const texto4 = inputValue4.toUpperCase();
 
-	console.error("EPA", savedValue);
+		for (let i = 0; i < arrayLetras1.length; i++) {
+			arrayLetras1[i] = texto1[i] ? texto1[i] : " ";
+		}
+
+		for (let i = 0; i < arrayLetras2.length; i++) {
+			arrayLetras2[i] = texto2[i] ? texto2[i] : " ";
+		}
+
+		for (let i = 0; i < arrayLetras3.length; i++) {
+			arrayLetras3[i] = texto3[i] ? texto3[i] : " ";
+		}
+
+		for (let i = 0; i < arrayLetras4.length; i++) {
+			arrayLetras4[i] = texto4[i] ? texto4[i] : " ";
+		}
+
+		setSavedValue1(arrayLetras1);
+		setSavedValue2(arrayLetras2);
+		setSavedValue3(arrayLetras3);
+		setSavedValue4(arrayLetras4);
+
+		panel[0] = arrayLetras1;
+		panel[1] = arrayLetras2;
+		panel[2] = arrayLetras3;
+		panel[3] = arrayLetras4;
+	};
 
 	const filas = [];
 	for (let i = 0; i < N_FILAS; i++) {
@@ -61,9 +104,15 @@ function Panel() {
 
 	return (
 		<>
-			<input type="text" value={inputValue} onChange={handleChange} />
+			<input type="text" value={inputValue1} onChange={handleChange1} />
+			<br />
+			<input type="text" value={inputValue2} onChange={handleChange2} />
+			<br />
+			<input type="text" value={inputValue3} onChange={handleChange3} />
+			<br />
+			<input type="text" value={inputValue4} onChange={handleChange4} />
+			<br />
 			<button onClick={handleSave}>OK!</button>
-			{console.error("inputs", savedValue)}
 			{filas}
 		</>
 	);
