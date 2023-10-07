@@ -34,3 +34,18 @@ input {
 	background: none;
 	border: solid 2px white;
 }
+
+.columnas {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 3rem;
+}
+
+.right input {
+	width: 4rem;
+}
+
+.right .cargar-panel {
+	width: 4.7rem;
+}

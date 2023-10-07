@@ -22,25 +22,29 @@
 }
 
 .space {
-	background: rgb(8, 8, 8);
-	border: solid 3px #282828;
+	cursor: auto;
+	background: rgb(28, 118, 213);
+	border: solid 3px rgb(19, 97, 180);
 }
 
 .space:hover {
-	background: rgb(8, 8, 8);
+	background: rgb(28, 118, 213);
 }
 
 .correct {
-	background: rgb(48, 168, 76);
-	border: solid 3px rgb(41, 136, 63);
+	background: rgb(252, 252, 252);
+	border: solid 3px rgb(239, 239, 239);
+	color: black;
 }
 
 .correct:hover {
-	background: rgb(48, 168, 76);
+	background: rgb(252, 252, 252);
 }
 
 .not-yet {
 	background: #525252;
+	transition: 1s;
+	color: black;
 }
 
 .not-yet:hover {

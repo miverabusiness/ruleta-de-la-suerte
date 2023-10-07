@@ -33,6 +33,9 @@ function Panel() {
 	const [savedValue3, setSavedValue3] = useState(null);
 	const [savedValue4, setSavedValue4] = useState(null);
 
+	const [inputLetter, setInputLetter] = useState("");
+	const [savedLetter, setSavedLetter] = useState(null);
+
 	const handleChange1 = (event) => {
 		setInputValue1(event.target.value);
 	};
@@ -47,6 +50,14 @@ function Panel() {
 
 	const handleChange4 = (event) => {
 		setInputValue4(event.target.value);
+	};
+
+	const handleChangeLetter = (event) => {
+		setInputLetter(event.target.value);
+	};
+
+	const handleSaveLetter = () => {
+		setSavedLetter(inputLetter);
 	};
 
 	const handleSave = () => {
@@ -104,17 +115,28 @@ function Panel() {
 
 	return (
 		<>
-			<input type="text" value={inputValue1} onChange={handleChange1} />
-			<br />
-			<input type="text" value={inputValue2} onChange={handleChange2} />
-			<br />
-			<input type="text" value={inputValue3} onChange={handleChange3} />
-			<br />
-			<input type="text" value={inputValue4} onChange={handleChange4} />
-			<br />
-			<button className="cargar-panel" onClick={handleSave}>
-				Cargar Panel
-			</button>
+			<div className="columnas">
+				<div className="left">
+					<input type="text" value={inputValue1} onChange={handleChange1} />
+					<br />
+					<input type="text" value={inputValue2} onChange={handleChange2} />
+					<br />
+					<input type="text" value={inputValue3} onChange={handleChange3} />
+					<br />
+					<input type="text" value={inputValue4} onChange={handleChange4} />
+					<br />
+					<button className="cargar-panel" onClick={handleSave}>
+						Cargar Panel
+					</button>
+				</div>
+				<div className="right">
+					<input type="text" value={inputLetter} onChange={handleChangeLetter} />
+					<br />
+					<button className="cargar-panel" onClick={handleSaveLetter}>
+						Letra
+					</button>
+				</div>
+			</div>
 			{filas}
 		</>
 	);
