@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Panel.css";
 import Card from "../card/Card";
 
@@ -10,9 +10,9 @@ let panel = [];
 
 for (let i = 0; i < N_FILAS; i++) {
 	if (i === 0 || i === N_FILAS - 1) {
-		panel.push(Array(FILA_CORTA).fill("A"));
+		panel.push(Array(FILA_CORTA).fill("!"));
 	} else {
-		panel.push(Array(FILA_LARGA).fill("E"));
+		panel.push(Array(FILA_LARGA).fill("?"));
 	}
 }
 
@@ -24,6 +24,25 @@ panel = [
 ];
 
 function Panel() {
+	const [inputValue, setInputValue] = useState("");
+	const [savedValue, setSavedValue] = useState(null);
+
+	const handleChange = (event) => {
+		setInputValue(event.target.value);
+	};
+
+	const handleSave = () => {
+		const arrayLetras = ["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+		const texto = inputValue.toUpperCase();
+		for (let i = 0; i < arrayLetras.length; i++) {
+			arrayLetras[i] = texto[i] ? texto[i] : " ";
+		}
+		setSavedValue(arrayLetras);
+		panel[1] = arrayLetras;
+	};
+
+	console.error("EPA", savedValue);
+
 	const filas = [];
 	for (let i = 0; i < N_FILAS; i++) {
 		const cards = [];
@@ -38,11 +57,16 @@ function Panel() {
 				{cards}
 			</div>
 		);
-
-		console.error("panel", panel);
 	}
 
-	return <>{filas}</>;
+	return (
+		<>
+			<input type="text" value={inputValue} onChange={handleChange} />
+			<button onClick={handleSave}>OK!</button>
+			{console.error("inputs", savedValue)}
+			{filas}
+		</>
+	);
 }
 
 export default Panel;
