@@ -32,7 +32,7 @@ input {
 	font-weight: 600;
 	font-size: 1.2rem;
 	cursor: pointer;
-	transition: 0.7s;
+	transition: 0.4s;
 	margin-top: 1rem;
 	margin-bottom: 3rem;
 }
@@ -52,9 +52,15 @@ input {
 	font-weight: 600;
 	font-size: 1.2rem;
 	cursor: pointer;
-	transition: 0.7s;
+	transition: 0.4s;
 	margin-top: 1rem;
 	margin-bottom: 3rem;
+}
+
+.resolver-panel:hover {
+	background: none;
+	border: solid 2px white;
+	color: white;
 }
 
 .columnas {

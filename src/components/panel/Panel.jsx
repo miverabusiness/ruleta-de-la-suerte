@@ -197,6 +197,31 @@ class Panel extends Component {
 		this.setState({ filas });
 	};
 
+	handleResolver = () => {
+		let filas = [];
+		for (let i = 0; i < N_FILAS; i++) {
+			const cards = [];
+			const longitudFila = i === 0 || i === N_FILAS - 1 ? FILA_CORTA : FILA_LARGA;
+
+			for (let j = 0; j < longitudFila; j++) {
+				if (panel[i][j].texto != " ") {
+					panel[i][j].show = true;
+				}
+				cards.push(
+					<Card key={j} letra={panel[i][j].texto} estado={panel[i][j].show ? " correct" : " space"} mostrarLetra={panel[i][j].show} />
+				);
+			}
+
+			filas.push(
+				<div className="fila" key={i}>
+					{cards}
+				</div>
+			);
+		}
+
+		this.setState({ filas });
+	};
+
 	render() {
 		const { inputValue1, inputValue2, inputValue3, inputValue4, inputLetter, filas } = this.state;
 
@@ -224,7 +249,7 @@ class Panel extends Component {
 						</button>
 					</div>
 					<div className="panel-buttons">
-						<button className="resolver-panel" onClick={this.handleSave}>
+						<button className="resolver-panel" onClick={this.handleResolver}>
 							Resolver
 						</button>
 					</div>
