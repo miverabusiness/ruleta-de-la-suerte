@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import "./Panel.css";
 import Card from "../card/Card";
 
@@ -10,136 +10,234 @@ let panel = [];
 
 for (let i = 0; i < N_FILAS; i++) {
 	if (i === 0 || i === N_FILAS - 1) {
-		panel.push(Array(FILA_CORTA).fill("!"));
+		panel.push(Array(FILA_CORTA).fill(" "));
 	} else {
-		panel.push(Array(FILA_LARGA).fill("?"));
+		panel.push(Array(FILA_LARGA).fill(" "));
 	}
 }
 
-panel = [
-	["", "", "", "", "", "", "", "", "", "", "", "", "", ""], //12
-	["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""], //14
-	["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""], //14
-	["", "", "", "", "", "", "", "", "", "", "", "", "", ""], //12
-];
+class Panel extends Component {
+	constructor(props) {
+		super(props);
 
-function Panel() {
-	const [inputValue1, setInputValue1] = useState("");
-	const [inputValue2, setInputValue2] = useState("");
-	const [inputValue3, setInputValue3] = useState("");
-	const [inputValue4, setInputValue4] = useState("");
-	const [savedValue1, setSavedValue1] = useState(null);
-	const [savedValue2, setSavedValue2] = useState(null);
-	const [savedValue3, setSavedValue3] = useState(null);
-	const [savedValue4, setSavedValue4] = useState(null);
+		this.state = {
+			inputValue1: "",
+			inputValue2: "",
+			inputValue3: "",
+			inputValue4: "",
+			savedValue1: null,
+			savedValue2: null,
+			savedValue3: null,
+			savedValue4: null,
+			inputLetter: "",
+			savedLetter: null,
+			filas: this.initialPanel(),
+		};
 
-	const [inputLetter, setInputLetter] = useState("");
-	const [savedLetter, setSavedLetter] = useState(null);
+		this.initialPanel();
+	}
 
-	const handleChange1 = (event) => {
-		setInputValue1(event.target.value);
-	};
+	initialPanel = () => {
+		let filas = [];
+		for (let i = 0; i < N_FILAS; i++) {
+			const cards = [];
+			const longitudFila = i === 0 || i === N_FILAS - 1 ? FILA_CORTA : FILA_LARGA;
 
-	const handleChange2 = (event) => {
-		setInputValue2(event.target.value);
-	};
+			for (let j = 0; j < longitudFila; j++) {
+				cards.push(<Card key={j} letra={panel[i][j]} estado=" space" mostrarLetra={false} />);
+			}
 
-	const handleChange3 = (event) => {
-		setInputValue3(event.target.value);
-	};
-
-	const handleChange4 = (event) => {
-		setInputValue4(event.target.value);
-	};
-
-	const handleChangeLetter = (event) => {
-		setInputLetter(event.target.value);
-	};
-
-	const handleSaveLetter = () => {
-		setSavedLetter(inputLetter);
-	};
-
-	const handleSave = () => {
-		let arrayLetras1 = ["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-		let arrayLetras2 = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-		let arrayLetras3 = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-		let arrayLetras4 = ["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-		const texto1 = inputValue1.toUpperCase();
-		const texto2 = inputValue2.toUpperCase();
-		const texto3 = inputValue3.toUpperCase();
-		const texto4 = inputValue4.toUpperCase();
-
-		for (let i = 0; i < arrayLetras1.length; i++) {
-			arrayLetras1[i] = texto1[i] ? texto1[i] : " ";
+			filas.push(
+				<div className="fila" key={i}>
+					{cards}
+				</div>
+			);
 		}
 
-		for (let i = 0; i < arrayLetras2.length; i++) {
-			arrayLetras2[i] = texto2[i] ? texto2[i] : " ";
+		return filas;
+	};
+
+	handleChange1 = (event) => {
+		if (event.target.value.toUpperCase().match(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/) || event.target.value == "") {
+			this.setState({ inputValue1: event.target.value.toUpperCase() });
+		}
+	};
+
+	handleChange2 = (event) => {
+		if (event.target.value.toUpperCase().match(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/) || event.target.value == "") {
+			this.setState({ inputValue2: event.target.value.toUpperCase() });
+		}
+	};
+
+	handleChange3 = (event) => {
+		if (event.target.value.toUpperCase().match(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/) || event.target.value == "") {
+			this.setState({ inputValue3: event.target.value.toUpperCase() });
+		}
+	};
+
+	handleChange4 = (event) => {
+		if (event.target.value.toUpperCase().match(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/) || event.target.value == "") {
+			this.setState({ inputValue4: event.target.value.toUpperCase() });
+		}
+	};
+
+	handleChangeLetter = (event) => {
+		if (event.target.value.toUpperCase().match("^[A-ZñÑ]*$") != null) {
+			this.setState({ inputLetter: event.target.value.toUpperCase() });
+		}
+	};
+
+	handleSaveLetter = () => {
+		const { inputLetter } = this.state;
+		this.setState({ savedLetter: inputLetter.toUpperCase() });
+		console.error("SAVED: ", inputLetter);
+		console.error("PANEL: ", panel);
+		let filas = [];
+		for (let i = 0; i < N_FILAS; i++) {
+			const cards = [];
+			const longitudFila = i === 0 || i === N_FILAS - 1 ? FILA_CORTA : FILA_LARGA;
+
+			for (let j = 0; j < longitudFila; j++) {
+				let status,
+					mostrar = false;
+				if (
+					panel[i][j].texto.toUpperCase() == inputLetter ||
+					panel[i][j].texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "") == inputLetter
+				) {
+					status = " correct";
+					mostrar = true;
+					panel[i][j].show = true;
+				} else if (panel[i][j].texto != " ") {
+					status = " not-yet";
+				} else {
+					status = " space";
+				}
+				cards.push(
+					<Card key={j} letra={panel[i][j].texto} estado={panel[i][j].show ? " correct" : status} mostrarLetra={panel[i][j].show} />
+				);
+			}
+
+			filas.push(
+				<div className="fila" key={i}>
+					{cards}
+				</div>
+			);
 		}
 
-		for (let i = 0; i < arrayLetras3.length; i++) {
-			arrayLetras3[i] = texto3[i] ? texto3[i] : " ";
+		this.setState({ filas });
+	};
+
+	handleSave = () => {
+		const { inputValue1, inputValue2, inputValue3, inputValue4 } = this.state;
+		let arrayLetras1 = Array(FILA_CORTA)
+			.fill(null)
+			.map(() => ({ texto: " ", show: false }));
+		let arrayLetras2 = Array(FILA_LARGA)
+			.fill(null)
+			.map(() => ({ texto: " ", show: false }));
+		let arrayLetras3 = Array(FILA_LARGA)
+			.fill(null)
+			.map(() => ({ texto: " ", show: false }));
+		let arrayLetras4 = Array(FILA_CORTA)
+			.fill(null)
+			.map(() => ({ texto: " ", show: false }));
+		const texto1 = Array.from(inputValue1.toUpperCase());
+		const texto2 = Array.from(inputValue2.toUpperCase());
+		const texto3 = Array.from(inputValue3.toUpperCase());
+		const texto4 = Array.from(inputValue4.toUpperCase());
+
+		for (let i = 0; i < texto1.length; i++) {
+			arrayLetras1[i].texto = texto1[i];
 		}
 
-		for (let i = 0; i < arrayLetras4.length; i++) {
-			arrayLetras4[i] = texto4[i] ? texto4[i] : " ";
+		for (let i = 0; i < texto2.length; i++) {
+			arrayLetras2[i].texto = texto2[i];
 		}
 
-		setSavedValue1(arrayLetras1);
-		setSavedValue2(arrayLetras2);
-		setSavedValue3(arrayLetras3);
-		setSavedValue4(arrayLetras4);
+		for (let i = 0; i < texto3.length; i++) {
+			arrayLetras3[i].texto = texto3[i];
+		}
+
+		for (let i = 0; i < texto4.length; i++) {
+			arrayLetras4[i].texto = texto4[i];
+		}
+
+		this.setState({
+			savedValue1: arrayLetras1,
+			savedValue2: arrayLetras2,
+			savedValue3: arrayLetras3,
+			savedValue4: arrayLetras4,
+		});
+		console.error("Arrayletras", arrayLetras1);
 
 		panel[0] = arrayLetras1;
 		panel[1] = arrayLetras2;
 		panel[2] = arrayLetras3;
 		panel[3] = arrayLetras4;
-	};
 
-	const filas = [];
-	for (let i = 0; i < N_FILAS; i++) {
-		const cards = [];
-		const longitudFila = i === 0 || i === N_FILAS - 1 ? FILA_CORTA : FILA_LARGA;
+		console.error("PANEL: ", panel);
 
-		for (let j = 0; j < longitudFila; j++) {
-			cards.push(<Card key={j} letra={panel[i][j]} />);
+		let filas = [];
+		for (let i = 0; i < N_FILAS; i++) {
+			const cards = [];
+			const longitudFila = i === 0 || i === N_FILAS - 1 ? FILA_CORTA : FILA_LARGA;
+
+			for (let j = 0; j < longitudFila; j++) {
+				const status = panel[i][j].texto === " " ? " space" : " not-yet";
+				cards.push(<Card key={j} letra={panel[i][j].texto} estado={status} mostrarLetra={false} />);
+			}
+
+			filas.push(
+				<div className="fila" key={i}>
+					{cards}
+				</div>
+			);
 		}
 
-		filas.push(
-			<div className="fila" key={i}>
-				{cards}
-			</div>
+		this.setState({ filas });
+	};
+
+	render() {
+		const { inputValue1, inputValue2, inputValue3, inputValue4, inputLetter, filas } = this.state;
+
+		return (
+			<>
+				<div className="columnas">
+					<div className="left">
+						<input type="text" value={inputValue1} onChange={this.handleChange1} maxLength={12} />
+						<br />
+						<input type="text" value={inputValue2} onChange={this.handleChange2} maxLength={14} />
+						<br />
+						<input type="text" value={inputValue3} onChange={this.handleChange3} maxLength={14} />
+						<br />
+						<input type="text" value={inputValue4} onChange={this.handleChange4} maxLength={12} />
+						<br />
+						<button className="cargar-panel" onClick={this.handleSave}>
+							Cargar Panel
+						</button>
+					</div>
+					<div className="right">
+						<input type="text" value={inputLetter} onChange={this.handleChangeLetter} maxLength={1} patter />
+						<br />
+						<button className="cargar-panel" onClick={this.handleSaveLetter}>
+							Letra
+						</button>
+					</div>
+					<div className="panel-buttons">
+						<button className="resolver-panel" onClick={this.handleSave}>
+							Resolver
+						</button>
+					</div>
+					<div className="contrareloj">
+						<button className="resolver-panel" onClick={this.handleSave}>
+							Contra Reloj
+						</button>
+					</div>
+				</div>
+				<div className="greenScreen">{this.state.filas}</div>
+			</>
 		);
 	}
-
-	return (
-		<>
-			<div className="columnas">
-				<div className="left">
-					<input type="text" value={inputValue1} onChange={handleChange1} />
-					<br />
-					<input type="text" value={inputValue2} onChange={handleChange2} />
-					<br />
-					<input type="text" value={inputValue3} onChange={handleChange3} />
-					<br />
-					<input type="text" value={inputValue4} onChange={handleChange4} />
-					<br />
-					<button className="cargar-panel" onClick={handleSave}>
-						Cargar Panel
-					</button>
-				</div>
-				<div className="right">
-					<input type="text" value={inputLetter} onChange={handleChangeLetter} />
-					<br />
-					<button className="cargar-panel" onClick={handleSaveLetter}>
-						Letra
-					</button>
-				</div>
-			</div>
-			{filas}
-		</>
-	);
 }
 
 export default Panel;

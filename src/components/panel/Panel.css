@@ -1,3 +1,10 @@
+/*
+.greenScreen {
+	padding: 2rem;
+	background-color: greenyellow;
+}
+*/
+
 .fila {
 	display: flex;
 	justify-content: center;
@@ -33,6 +40,21 @@ input {
 .cargar-panel:hover {
 	background: none;
 	border: solid 2px white;
+}
+
+.resolver-panel {
+	background-color: #f5ebff;
+	border: solid 2px #5e20a4;
+	border-radius: 10px;
+	width: 10rem;
+	height: 2.5rem;
+	color: #5e20a4;
+	font-weight: 600;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: 0.7s;
+	margin-top: 1rem;
+	margin-bottom: 3rem;
 }
 
 .columnas {

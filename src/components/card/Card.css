@@ -17,10 +17,6 @@
 	margin-top: 0.3rem;
 }
 
-.letter-card:hover {
-	background: #c6c6c6;
-}
-
 .space {
 	cursor: auto;
 	background: rgb(28, 118, 213);
@@ -43,11 +39,16 @@
 
 .not-yet {
 	background: #525252;
-	transition: 1s;
+	transition: 1.5s;
 	color: black;
 }
 
-.not-yet:hover {
+.pending {
+	background: rgb(255, 184, 112);
+	border: solid 3px rgb(239, 160, 81);
+}
+
+.pending:hover {
 	background: rgb(255, 184, 112);
 	border: solid 3px rgb(239, 160, 81);
 }

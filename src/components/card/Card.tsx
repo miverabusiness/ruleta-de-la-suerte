@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 import "./Card.css";
 
-function Card(props: { letra: string }) {
-	const [mostrarLetra, setMostrarLetra] = useState(false);
+function Card(props: { letra: string; estado: string; mostrarLetra: boolean }) {
+	// const [mostrarLetra, setMostrarLetra] = useState(true);
 
 	const handleClick = () => {
-		setMostrarLetra(!mostrarLetra);
+		// console.error("EVENT CLICK: ", event);
+		// if (props.estado === " pending") {
+		//	setMostrarLetra(!mostrarLetra);
+		//}
 	};
 
-	const isLetter = () => {
-		return props.letra === " " || props.letra === "" ? " space" : mostrarLetra ? " correct" : " not-yet";
+	const addedClasses = () => {
+		if (props.estado) {
+			return props.estado;
+		} else {
+			return props.mostrarLetra ? " correct" : " pending";
+		}
 	};
 
 	return (
 		<>
-			<button className={"letter-card" + isLetter()} onClick={handleClick}>
-				{mostrarLetra ? props.letra : ""}
+			<button className={"letter-card" + addedClasses()} onClick={handleClick}>
+				{props.mostrarLetra ? props.letra : ""}
 			</button>
 		</>
 	);
